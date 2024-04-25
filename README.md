@@ -30,6 +30,8 @@ mysql> select * from Country;
 | 101 | India | 1 |
 +------------+--------------+-----------+
 1 row in set (0.00 sec)
+
+
 Q2. Write a SQL statement to create a table Student with fields
 Roll-No, Name and Marks. Insert 3 records in the table and arrange the
 records in ascending order. Display the table.
@@ -50,6 +52,10 @@ mysql> select * from Students order by Name asc;
 | 103 | Virendra | 70 |
 +---------+----------+-------+
 3 rows in set (0.00 sec)
+
+
+
+
 Q3. Write a SQL statement to create a table Department with fields
 Deptid, Deptname, Location. Create a table Employee with fields
 Emp_Id, Ename, Salary and Did as foreign key. Describe both tables and
@@ -103,6 +109,10 @@ mysql> select * from employee;
 | 101 | Sachin | 50000 | 1 |
 +--------+--------+--------+---------+
 1 row in set (0.00 sec)
+
+
+
+
 Q4. Write a SQL statement to create a table Employee with fields
 Emp_Id, Ename, Deptname and Salary.Insert two records in a table.
 Write an SQL query to display details of Employees with department
@@ -125,6 +135,9 @@ mysql> select * from employee where Dept_name = "Admin";
 | 108 | Rohit Sharma | Admin | 75000 |
 +--------+--------------+-----------+--------+
 1 row in set (0.00 sec)
+
+
+
 Q5.Write a SQL statement to create a table Book with fields
 Book_Id as a primary key, Book_Name, Author and Publisher.
 Insert 2 records in the table and display the table. Display those
@@ -152,6 +165,10 @@ mysql> select * from Book where Book_Name like "D%";
 | 101 | DBMS | RG | Basic of DBMS |
 +---------+-----------+--------+---------------+
 1 row in set (0.00 sec)
+
+
+
+
 Q6. Write a SQL statement to create a table Book with fields
 Book_Id, Book_Name, Author and Publisher. Insert 2 records in the
 table and display the table.Write an SQL query to display book names
@@ -167,6 +184,10 @@ mysql> select * from Book order by Book_Name asc;
 | 102 | OS | SD | Operating System |
 +---------+-----------+--------+------------------+
 2 rows in set (0.00 sec)
+
+
+Q.7 create EMPLOYEE table with the following data.
+Add a column experience to te emp table and describe the table structure
 ANS.
 mysql> desc employee;
 +---------+-------------+------+-----+---------+-------+
@@ -195,6 +216,10 @@ mysql> desc employee;
 | experience | int | YES | | NULL | |
 +------------+-------------+------+-----+---------+-------+
 6 rows in set (0.00 sec)
+
+
+Q.8 Create EMPLOYEE table with the following fields.
+Modify the coumn of employee table with new size 20
 ANS.
 mysql> alter table employee
  -> modify job varchar(20);
@@ -212,6 +237,8 @@ mysql> desc employee;
 | experience | int | YES | | NULL | |
 +------------+-------------+------+-----+---------+-------+
 6 rows in set (0.00 sec)
+
+
 Q9. Write a SQL statement to create a table Student with fields
 Roll-No, Name and Marks.
 Insert 2 records in the table.
@@ -240,6 +267,8 @@ mysql> select * from students;
 | 103 | Virendra | 70 |
 +---------+----------+-------+
 3 rows in set (0.00 sec)
+
+
 Q10.Write a SQL statement to create a table Student with fields
 Roll_No, Name and marks of sub1, sub2 and sub3. Insert 3 records in
 the table.Display roll no and average marks of subjects for each
@@ -272,6 +301,9 @@ mysql> SELECT Roll_No, Name, (Sub1 + Sub2 + Sub3) / 3 AS Average_Marks
 | 3 | Charlie | 75.0000 |
 +---------+---------+---------------+
 3 rows in set (0.00 sec)
+
+
+
 Q11. Write a SQL statement to create a table Student with fields
 Roll_No, Name and marks of sub1, sub2 and sub3.
 Insert 3 records in the table.
@@ -287,6 +319,10 @@ Max_Sub2, MAX(Sub3) AS Max_Sub3 FROM Student GROUP BY Roll_No, Name;
 | 3 | Charlie | 75 | 70 | 80 |
 +---------+---------+----------+----------+----------+
 3 rows in set (0.00 sec)
+
+
+
+
 Q12. For bank database, create table Borrower with fields
 Customer_Name, Loan_No and Loan_Amt. Insert 2 records in each table.
 Display Customer details who are having loan amount more than ₹100000.
@@ -307,6 +343,9 @@ mysql> select * from borrower where Loan_Amt >100000;
 | Virendra | 210 | 110000 |
 +---------------+---------+----------+
 1 row in set (0.00 sec)
+
+
+
 Q13For bank database Create table Depositor with fields Customer_Name
 and Account_No. Create table Borrower with fields Customer_name and
 Loan_no. Insert 2 records in each table. Execute natural join
@@ -337,6 +376,9 @@ mysql> select * from depositor natural join borrower;
 | Virendra | 134526 | 210 |
 +---------------+------------+---------+
 3 rows in set (0.00 sec)
+
+
+
 Q14. For bank database
 Create table Depositor with fields Customer_name and Account_no.
 Insert 2 records in each table. Write an SQL query to fetch unique
@@ -363,7 +405,9 @@ mysql> select distinct(Customer_Name) from depositor;
 | Virendra |
 +---------------+
 3 rows in set (0.00 sec)
-Q. Write a SQL statement to create a table Employee with fields
+
+
+Q.15 Write a SQL statement to create a table Employee with fields
 Emp_Id, Ename, Deptname and Salary. Insert two records in a table.
 Write an SQL query to fetch Employee names with salaries >= 50000 and
 <= 100000.
@@ -389,7 +433,10 @@ mysql> select Ename from employee where Salary between 50000 and
 | Rohit Sharma |
 +-----------------+
 4 rows in set (0.00 sec)
-Q15. Write a SQL statement to create a table Employee with fields
+
+
+
+Q16. Write a SQL statement to create a table Employee with fields
 Emp_Id, Ename, Deptname and Salary. Insert two records in a table.
 Write an SQL query to fetch Employee names having highest salary in
 department.
@@ -418,7 +465,10 @@ mysql> SELECT Ename, Dept_name, Salary
 | Rohit Sharma | Admin | 75000 |
 +-----------------+-----------+--------+
 3 rows in set (0.00 sec)
-Q16. Write a SQL statement to create a table Book with fields
+
+
+
+Q17. Write a SQL statement to create a table Book with fields
 Book (Book_Id, Title, Author, Cost) Insert two records in a table.
 Write an SQL queries to modify the cost of DBMS books by 12%.
 ANS.
@@ -441,7 +491,10 @@ mysql> select * from book;
 | 102 | OS | SD | Operating System | 800 |
 +---------+-----------+--------+------------------+------+
 2 rows in set (0.00 sec)
-Q17. Write a SQL statement to create a table Employee with fields
+
+
+
+Q18. Write a SQL statement to create a table Employee with fields
 Emp_Id, Ename, Deptname and Salary. Insert two records in a table.
 Write an SQL queries to modify the salary of all employees with 15%
 rise in salary.
@@ -469,7 +522,9 @@ mysql> select * from employee;
 | 108 | Rohit Sharma | Admin | 86250 |
 +--------+-----------------+-----------+--------+
 4 rows in set (0.00 sec)
-Q18. Write a SQL statement to create a table Employee with fields
+
+
+Q19. Write a SQL statement to create a table Employee with fields
 EmpId, EName, Address, City Insert two records in a table. Write an
 SQL queries to modify database so that Rohit now lives in Mumbai,
 assuming the database entry was Rohit staying in Delhi.
