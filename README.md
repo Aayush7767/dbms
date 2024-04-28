@@ -1,560 +1,495 @@
-Q1. Write a SQL statement to create a table Country with fields
-Country_Id, Country_Name and Region_Id. Insert 2 records in the table
-and display the table. Then delete one record from the table.
-ANS.
-create database practice;
-Query OK, 1 row affected (0.01 sec)
-mysql> use practice;
-Database changed
-mysql> create table Country(Country_Id int primary key ,Country_Name
-varchar(50),Region_Id int);
-Query OK, 0 rows affected (0.03 sec)
-mysql> insert into Country values(101,"India",01);
-Query OK, 1 row affected (0.01 sec)
-mysql> insert into Country values(102,"Canada",02);
-Query OK, 1 row affected (0.01 sec)
-mysql> select * from Country;
-+------------+--------------+-----------+
-| Country_Id | Country_Name | Region_Id |
-+------------+--------------+-----------+
-| 101 | India | 1 |
-| 102 | Canada | 2 |
-+------------+--------------+-----------+
-2 rows in set (0.00 sec)
-mysql> delete from Country where Country_Id=102;
-Query OK, 1 row affected (0.01 sec)
-mysql> select * from Country;
-+------------+--------------+-----------+
-| Country_Id | Country_Name | Region_Id |
-+------------+--------------+-----------+
-| 101 | India | 1 |
-+------------+--------------+-----------+
-1 row in set (0.00 sec)
+Selection Sort
+#include <stdio.h>
+void selectionSort(int arr[], int size);
+void swap(int *a, int *b);
+/*Selection sort function*/
+void selectionSort(int arr[], int size)
+{
+int i, j;
+for (i = 0; i < size; i++)
+{
+for (j = i; j < size; j++)
+{
+if (arr[i] > arr[j])
+swap(&arr[i], &arr[j]);
+}
+}
+}
+/*Function to swap two variables*/
+void swap(int *a, int *b)
+{
+int temp;
+temp = *a;
+*a = *b;
+*b = temp;
+}
+/*Main Function*/
+int main()
+{
+int array[10], i, size;
+printf("How many numbers you want to sort: ");
+scanf("%d", &size);
+printf("\nEnter %d numbers:\t", size);
+printf("\n");
+for (i = 0; i < size; i++)
+scanf("%d", &array[i]);
+selectionSort(array, size);
+printf("\nSorted array is: ");
+for (i = 0; i < size; i++)
+printf(" %d ", array[i]);
+return 0;
+}
 
 
-Q2. Write a SQL statement to create a table Student with fields
-Roll-No, Name and Marks. Insert 3 records in the table and arrange the
-records in ascending order. Display the table.
-ANS.
-mysql> create table Students (Roll_no int primary key,Name
-varchar(50),Marks int);
-Query OK, 0 rows affected (0.02 sec)
-mysql> insert into Students
-values(101,"Sachin",80),(102,"Virat",90),(103,"Virendra",70);
-Query OK, 3 rows affected (0.01 sec)
-Records: 3 Duplicates: 0 Warnings: 0
-mysql> select * from Students order by Name asc;
-+---------+----------+-------+
-| Roll_no | Name | Marks |
-+---------+----------+-------+
-| 101 | Sachin | 80 |
-| 102 | Virat | 90 |
-| 103 | Virendra | 70 |
-+---------+----------+-------+
-3 rows in set (0.00 sec)
+Insertion Sort.
+#include <stdio.h>
+int main(void)
+{
+int n, i, j, temp;
+int arr[64];
+printf("\nEnter number of elements:");
+scanf("%d", &n);
+printf("\nEnter %d integers:\t\n", n);
+for (i = 0; i < n; i++)
+{
+scanf("%d", &arr[i]);
+}
+for (i = 1; i < n; i++)
+{
+j = i;
+while (j > 0 && arr[j - 1] > arr[j])
+{
+temp = arr[j];
+arr[j] = arr[j - 1];
+arr[j - 1] = temp;
+j--;
+}
+}
+printf("\nSorted array is:");
+for (i = 0; i < n; i++)
+{
+printf(" %d ", arr[i]);
+}
+return 0;
+}
 
 
-
-
-Q3. Write a SQL statement to create a table Department with fields
-Deptid, Deptname, Location. Create a table Employee with fields
-Emp_Id, Ename, Salary and Did as foreign key. Describe both tables and
-insert one record in each table.
-ANS.
-mysql> create table employee(Emp_id int primary key , Ename
-varchar(20),Salary int , Dept_id int);
-Query OK, 0 rows affected (0.02 sec)
-mysql> create table department(Location Varchar(20) , Dept_name
-varchar(20), Dept_id int primary key);
-Query OK, 0 rows affected (0.02 sec)
-mysql> desc department;
-+-----------+-------------+------+-----+---------+-------+
-| Field | Type | Null | Key | Default | Extra |
-+-----------+-------------+------+-----+---------+-------+
-| Location | varchar(20) | YES | | NULL | |
-| Dept_name | varchar(20) | YES | | NULL | |
-| Dept_id | int | NO | PRI | NULL | |
-+-----------+-------------+------+-----+---------+-------+
-3 rows in set (0.00 sec)
-mysql> alter table employee
- -> add foreign key(Dept_id)
- -> references department(Dept_id);
-Query OK, 0 rows affected (0.05 sec)
-Records: 0 Duplicates: 0 Warnings: 0
-mysql> desc employee;
-+---------+-------------+------+-----+---------+-------+
-| Field | Type | Null | Key | Default | Extra |
-+---------+-------------+------+-----+---------+-------+
-| Emp_id | int | NO | PRI | NULL | |
-| Ename | varchar(20) | YES | | NULL | |
-| Salary | int | YES | | NULL | |
-| Dept_id | int | YES | MUL | NULL | |
-+---------+-------------+------+-----+---------+-------+
-4 rows in set (0.00 sec)
-mysql> insert into department values("1st Floor","Admin",01);
-Query OK, 1 row affected (0.01 sec)
-mysql> insert into employee values(101,"Sachin",50000,01);
-Query OK, 1 row affected (0.00 sec)
-mysql> select * from department;
-+-----------+-----------+---------+
-| Location | Dept_name | Dept_id |
-+-----------+-----------+---------+
-| 1st Floor | Admin | 1 |
-+-----------+-----------+---------+
-1 row in set (0.00 sec)
-mysql> select * from employee;
-+--------+--------+--------+---------+
-| Emp_id | Ename | Salary | Dept_id |
-+--------+--------+--------+---------+
-| 101 | Sachin | 50000 | 1 |
-+--------+--------+--------+---------+
-1 row in set (0.00 sec)
-
-
-
-
-Q4. Write a SQL statement to create a table Employee with fields
-Emp_Id, Ename, Deptname and Salary.Insert two records in a table.
-Write an SQL query to display details of Employees with department
-name as “Admin”.
-ANS.
-NOTE: Same as above query instruction for creating table and insertion
-of values.
-mysql> select * from employee;
-+--------+-----------------+-----------+--------+
-| Emp_id | Ename | Dept_name | Salary |
-+--------+-----------------+-----------+--------+
-| 101 | M.S Dhoni | Software | 50000 |
-| 108 | Rohit Sharma | Admin | 75000 |
-+--------+-----------------+-----------+--------+
-4 rows in set (0.00 sec)
-mysql> select * from employee where Dept_name = "Admin";
-+--------+--------------+-----------+--------+
-| Emp_id | Ename | Dept_name | Salary |
-+--------+--------------+-----------+--------+
-| 108 | Rohit Sharma | Admin | 75000 |
-+--------+--------------+-----------+--------+
-1 row in set (0.00 sec)
-
-
-
-Q5.Write a SQL statement to create a table Book with fields
-Book_Id as a primary key, Book_Name, Author and Publisher.
-Insert 2 records in the table and display the table. Display those
-book details whose Book_Name starts with letter D.
-ANS.
-mysql> create table Book (Book_id int primary key , Book_Name
-varchar(20),Author varchar(20),Publisher varchar(20));
-Query OK, 0 rows affected (0.02 sec)
-mysql> insert into Book values(101,"DBMS","RG","Basic of
-DBMS"),(102,"OS","SD","Operating System");
-Query OK, 2 rows affected (0.01 sec)
-Records: 2 Duplicates: 0 Warnings: 0
-mysql> select * from Book;
-+---------+-----------+--------+------------------+
-| Book_id | Book_Name | Author | Publisher |
-+---------+-----------+--------+------------------+
-| 101 | DBMS | RG | Basic of DBMS |
-| 102 | OS | SD | Operating System |
-+---------+-----------+--------+------------------+
-2 rows in set (0.00 sec)
-mysql> select * from Book where Book_Name like "D%";
-+---------+-----------+--------+---------------+
-| Book_id | Book_Name | Author | Publisher |
-+---------+-----------+--------+---------------+
-| 101 | DBMS | RG | Basic of DBMS |
-+---------+-----------+--------+---------------+
-1 row in set (0.00 sec)
+Merge Sort
+#include <stdio.h>
+#include <stdlib.h>
+// merge function
+void Merge(int arr[], int left, int mid, int right)
+{
+int i, j, k;
+int size1 = mid - left + 1;
+int size2 = right - mid;
+// created temporary array
+int Left[size1], Right[size2];
+// copying the data from arr to temporary array
+for (i = 0; i < size1; i++)
+Left[i] = arr[left + i];
+for (j = 0; j < size2; j++)
+Right[j] = arr[mid + 1 + j];
+// merging of the array
+i = 0; // intital index of first subarray
+j = 0; // inital index of second subarray
+k = left; // initial index of parent array
+while (i < size1 && j < size2)
+{
+if (Left[i] <= Right[j])
+{
+arr[k] = Left[i];
+i++;
+}
+else
+{
+arr[k] = Right[j];
+j++;
+}
+k++;
+}
+// copying the elements from Left[], if any
+while (i < size1)
+{
+arr[k] = Left[i];
+i++;
+k++;
+}
+// copying the elements from Right[], if any
+while (j < size2)
+{
+arr[k] = Right[j];
+j++;
+k++;
+}
+}
+// merge sort function
+void Merge_Sort(int arr[], int left, int right)
+{
+if (left < right)
+{
+int mid = left + (right - left) / 2;
+// recursive calling of merge_sort
+Merge_Sort(arr, left, mid);
+Merge_Sort(arr, mid + 1, right);
+Merge(arr, left, mid, right);
+}
+}
+// driver code
+int main()
+{
+int size;
+printf("\nEnter the size: ");
+scanf("%d", &size);
+int arr[size];
+printf("\nEnter the elements of array:\t\n ");
+for (int i = 0; i < size; i++)
+{
+scanf("%d", &arr[i]);
+}
+Merge_Sort(arr, 0, size - 1);
+printf("\nThe sorted array is: ");
+for (int i = 0; i < size; i++)
+{
+printf(" %d ", arr[i]);
+}
+printf("\n");
+return 0;
+}
 
 
 
-
-Q6. Write a SQL statement to create a table Book with fields
-Book_Id, Book_Name, Author and Publisher. Insert 2 records in the
-table and display the table.Write an SQL query to display book names
-in ascending order.
-ANS.
-NOTE: Same as above query instruction for creating table and insertion
-of values.
-mysql> select * from Book order by Book_Name asc;
-+---------+-----------+--------+------------------+
-| Book_id | Book_Name | Author | Publisher |
-+---------+-----------+--------+------------------+
-| 101 | DBMS | RG | Basic of DBMS |
-| 102 | OS | SD | Operating System |
-+---------+-----------+--------+------------------+
-2 rows in set (0.00 sec)
-
-
-Q.7 create EMPLOYEE table with the following data.
-Add a column experience to te emp table and describe the table structure
-ANS.
-mysql> desc employee;
-+---------+-------------+------+-----+---------+-------+
-| Field | Type | Null | Key | Default | Extra |
-+---------+-------------+------+-----+---------+-------+
-| Emp_id | int | NO | PRI | NULL | |
-| Ename | varchar(20) | YES | | NULL | |
-| Salary | int | YES | | NULL | |
-| Dept_id | int | YES | MUL | NULL | |
-| job | varchar(30) | YES | | NULL | |
-+---------+-------------+------+-----+---------+-------+
-5 rows in set (0.00 sec)
-mysql> alter table employee
- -> add experience int;
-Query OK, 0 rows affected (0.02 sec)
-Records: 0 Duplicates: 0 Warnings: 0
-mysql> desc employee;
-+------------+-------------+------+-----+---------+-------+
-| Field | Type | Null | Key | Default | Extra |
-+------------+-------------+------+-----+---------+-------+
-| Emp_id | int | NO | PRI | NULL | |
-| Ename | varchar(20) | YES | | NULL | |
-| Salary | int | YES | | NULL | |
-| Dept_id | int | YES | MUL | NULL | |
-| job | varchar(30) | YES | | NULL | |
-| experience | int | YES | | NULL | |
-+------------+-------------+------+-----+---------+-------+
-6 rows in set (0.00 sec)
-
-
-Q.8 Create EMPLOYEE table with the following fields.
-Modify the coumn of employee table with new size 20
-ANS.
-mysql> alter table employee
- -> modify job varchar(20);
-Query OK, 1 row affected (0.06 sec)
-Records: 1 Duplicates: 0 Warnings: 0
-mysql> desc employee;
-+------------+-------------+------+-----+---------+-------+
-| Field | Type | Null | Key | Default | Extra |
-+------------+-------------+------+-----+---------+-------+
-| Emp_id | int | NO | PRI | NULL | |
-| Ename | varchar(20) | YES | | NULL | |
-| Salary | int | YES | | NULL | |
-| Dept_id | int | YES | MUL | NULL | |
-| job | varchar(20) | YES | | NULL | |
-| experience | int | YES | | NULL | |
-+------------+-------------+------+-----+---------+-------+
-6 rows in set (0.00 sec)
-
-
-Q9. Write a SQL statement to create a table Student with fields
-Roll-No, Name and Marks.
-Insert 2 records in the table.
-Update student marks as 70 whose Roll_No is 102.
-Display the table.
-ANS.
-Note: Same as Q2
-mysql> select * from students;
-+---------+----------+-------+
-| Roll_no | Name | Marks |
-+---------+----------+-------+
-| 101 | Sachin | 80 |
-| 102 | Virat | 90 |
-| 103 | Virendra | 70 |
-+---------+----------+-------+
-3 rows in set (0.00 sec)
-mysql> update students set Marks=70 where Roll_no=102;
-Query OK, 1 row affected (0.01 sec)
-Rows matched: 1 Changed: 1 Warnings: 0
-mysql> select * from students;
-+---------+----------+-------+
-| Roll_no | Name | Marks |
-+---------+----------+-------+
-| 101 | Sachin | 80 |
-| 102 | Virat | 70 |
-| 103 | Virendra | 70 |
-+---------+----------+-------+
-3 rows in set (0.00 sec)
-
-
-Q10.Write a SQL statement to create a table Student with fields
-Roll_No, Name and marks of sub1, sub2 and sub3. Insert 3 records in
-the table.Display roll no and average marks of subjects for each
-student.
-ANS.
-mysql> CREATE TABLE Student (Roll_No INT PRIMARY KEY,Name
-VARCHAR(50),Sub1 INT,Sub2 INT,Sub3 INT);
-Query OK, 0 rows affected (0.02 sec)
-mysql> INSERT INTO Student (Roll_No, Name, Sub1, Sub2, Sub3) VALUES(1,
-'Alice', 80, 75, 85), (2, 'Bob', 90, 85, 80), (3, 'Charlie', 75, 70,
-80);
-Query OK, 3 rows affected (0.01 sec)
-Records: 3 Duplicates: 0 Warnings: 0
-mysql> SELECT * FROM Student;
-+---------+---------+------+------+------+
-| Roll_No | Name | Sub1 | Sub2 | Sub3 |
-+---------+---------+------+------+------+
-| 1 | Alice | 80 | 75 | 85 |
-| 2 | Bob | 90 | 85 | 80 |
-| 3 | Charlie | 75 | 70 | 80 |
-+---------+---------+------+------+------+
-3 rows in set (0.00 sec)
-mysql> SELECT Roll_No, Name, (Sub1 + Sub2 + Sub3) / 3 AS Average_Marks
- -> FROM Student;
-+---------+---------+---------------+
-| Roll_No | Name | Average_Marks |
-+---------+---------+---------------+
-| 1 | Alice | 80.0000 |
-| 2 | Bob | 85.0000 |
-| 3 | Charlie | 75.0000 |
-+---------+---------+---------------+
-3 rows in set (0.00 sec)
+Quick Sort
+#include <stdio.h>
+#include <stdlib.h>
+int quickSort(int *arr, int low, int high)
+{
+int i = low, j = high;
+int pivot = arr[(low + high) / 2];
+while (i <= j)
+{
+while (arr[i] < pivot)
+i++;
+while (arr[j] > pivot)
+j--;
+if (i <= j)
+{
+int temp = arr[i];
+arr[i] = arr[j];
+arr[j] = temp;
+i++;
+j--;
+}
+}
+if (low < j)
+quickSort(arr, low, j);
+if (i < high)
+quickSort(arr, i, high);
+return 0;
+}
+int main(void)
+{
+puts("Enter the number of elements in the array: ");
+int n;
+scanf("%d", &n);
+int arr[n];
+puts("Enter the elements of the array: ");
+for (int i = 0; i < n; i++)
+{
+printf("arr[%d]: ", i);
+scanf("%d", &arr[i]);
+}
+int low = 0;
+int high = n - 1;
+int pivot = arr[high];
+int k = low - 1;
+for (int j = low; j < high; j++)
+{
+if (arr[j] <= pivot)
+{
+k++;
+int temp = arr[k];
+arr[k] = arr[j];
+arr[j] = temp;
+}
+}
+int temp = arr[k + 1];
+arr[k + 1] = arr[high];
+arr[high] = temp;
+int pi = k + 1;
+quickSort(arr, low, pi - 1);
+quickSort(arr, pi + 1, high);
+puts("The sorted array is: ");
+for (int i = 0; i < n; i++)
+{
+printf("%d ", arr[i]);
+}
+return 0;
+}
 
 
 
-Q11. Write a SQL statement to create a table Student with fields
-Roll_No, Name and marks of sub1, sub2 and sub3.
-Insert 3 records in the table.
-Display roll no and maximum marks of subject for each student.
-ANS.
-mysql> SELECT Roll_No, Name, MAX(Sub1) AS Max_Sub1, MAX(Sub2) AS
-Max_Sub2, MAX(Sub3) AS Max_Sub3 FROM Student GROUP BY Roll_No, Name;
-+---------+---------+----------+----------+----------+
-| Roll_No | Name | Max_Sub1 | Max_Sub2 | Max_Sub3 |
-+---------+---------+----------+----------+----------+
-| 1 | Alice | 80 | 75 | 85 |
-| 2 | Bob | 90 | 85 | 80 |
-| 3 | Charlie | 75 | 70 | 80 |
-+---------+---------+----------+----------+----------+
-3 rows in set (0.00 sec)
+Max Min
+#include<stdio.h>
+int max, min;
+int a[100];
+void maxmin(int i, int j)
+{
+    int max1, min1, mid;
+    if(i==j)
+    {
+        max = min = a[i];
+    }
+    else
+    {
+        if(i == j-1)
+        {
+            if(a[i] < a[j])
+            {
+                max = a[j];
+                min = a[i];
+            }
+            else
+            {
+                max = a[i];
+                min = a[j];
+            }
+        }
+        else
+        {
+            mid = (i+j)/2;
+            maxmin(i, mid);
+            max1 = max; 
+            min1 = min;
+            maxmin(mid+1, j);
+            if(max < max1)
+                max = max1;
+            if(min > min1)
+                min = min1;
+        }
+    }
+}
+int main ()
+{
+    int i, num;
+    printf ("\nEnter the total number of numbers : ");
+    scanf ("%d", &num);
+    printf ("Enter the numbers : \n");
+    for (i = 1; i <= num; i++)
+        scanf ("%d", &a[i]);
+
+    max = a[1];
+    min = a[1];
+    maxmin(1, num);
+    printf ("Minimum element in the array : %d\n", min);
+    printf ("Maximum element in the array : %d\n", max);
+    return 0;
+}
 
 
 
-
-Q12. For bank database, create table Borrower with fields
-Customer_Name, Loan_No and Loan_Amt. Insert 2 records in each table.
-Display Customer details who are having loan amount more than ₹100000.
-ANS.
-mysql> create table borrower (Customer_Name varchar(30),Loan_No
-int,Loan_Amt int );
-Query OK, 0 rows affected (0.02 sec)
-mysql> insert into borrower
-values("Sachin",201,100000),("Rahul",290,99999);
-Query OK, 2 rows affected (0.01 sec)
-Records: 2 Duplicates: 0 Warnings: 0
-mysql> insert into borrower values("Virendra",210,110000);
-Query OK, 1 row affected (0.00 sec)
-mysql> select * from borrower where Loan_Amt >100000;
-+---------------+---------+----------+
-| Customer_Name | Loan_No | Loan_Amt |
-+---------------+---------+----------+
-| Virendra | 210 | 110000 |
-+---------------+---------+----------+
-1 row in set (0.00 sec)
-
-
-
-Q13For bank database Create table Depositor with fields Customer_Name
-and Account_No. Create table Borrower with fields Customer_name and
-Loan_no. Insert 2 records in each table. Execute natural join
-operation and display the result.
-ANS.
-mysql> create table borrower (Customer_Name varchar(30),Loan_No int);
-Query OK, 0 rows affected (0.02 sec)
-mysql> insert into borrower values("Sachin",201),("Rahul",290);
-Query OK, 2 rows affected (0.01 sec)
-Records: 2 Duplicates: 0 Warnings: 0
-mysql> insert into borrower values("Virendra",210);
-Query OK, 1 row affected (0.00 sec)
-mysql> create table depositor (Customer_Name varchar(20),Account_No
-int);
-Query OK, 0 rows affected (0.02 sec)
-mysql> insert into depositor values ("Sachin",11111);
-Query OK, 1 row affected (0.01 sec)
-mysql> insert into depositor values
-("Rahul",12121),("Virendra",134526);
-Query OK, 2 rows affected (0.01 sec)
-Records: 2 Duplicates: 0 Warnings: 0
-mysql> select * from depositor natural join borrower;
-+---------------+------------+---------+
-| Customer_Name | Account_No | Loan_No |
-+---------------+------------+---------+
-| Sachin | 11111 | 201 |
-| Rahul | 12121 | 290 |
-| Virendra | 134526 | 210 |
-+---------------+------------+---------+
-3 rows in set (0.00 sec)
-
-
-
-Q14. For bank database
-Create table Depositor with fields Customer_name and Account_no.
-Insert 2 records in each table. Write an SQL query to fetch unique
-values of Customer names from depositor table.
-ANS.
-mysql> insert into depositor values ("Sachin",16789);
-Query OK, 1 row affected (0.01 sec)
-mysql> select * from depositor;
-+---------------+------------+
-| Customer_Name | Account_No |
-+---------------+------------+
-| Sachin | 11111 |
-| Rahul | 12121 |
-| Virendra | 134526 |
-| Sachin | 16789 |
-+---------------+------------+
-4 rows in set (0.00 sec)
-mysql> select distinct(Customer_Name) from depositor;
-+---------------+
-| Customer_Name |
-+---------------+
-| Sachin |
-| Rahul |
-| Virendra |
-+---------------+
-3 rows in set (0.00 sec)
+Fractional Knapsack
+#include <stdio.h>
+void main()
+{
+int capacity, no_items, cur_weight, item;
+int used[10];
+float total_profit;
+int i;
+int weight[10];
+int value[10];
+printf("\nEnter the capacity of knapsack:");
+scanf("%d", &capacity);
+printf("\nEnter the number of items:");
+scanf(" %d", &no_items);
+printf("\nEnter the weight and value respectively of %d item:\n",
+no_items);
+for (i = 0; i < no_items; i++)
+{
+printf("Weight[%d]:\t", i);
+scanf("%d", &weight[i]);
+printf("Value(Rs.)[%d]:\t", i);
+scanf("%d", &value[i]);
+}
+for (i = 0; i < no_items; ++i)
+used[i] = 0;
+cur_weight = capacity;
+while (cur_weight > 0)
+{
+item = -1;
+for (i = 0; i < no_items; ++i)
+if ((used[i] == 0) &&
+((item == -1) || ((float)value[i] / weight[i] >
+(float)value[item] / weight[item])))
+item = i;
+used[item] = 1;
+cur_weight -= weight[item];
+total_profit += value[item];
+if (cur_weight >= 0)
+printf("Added object %d (%d Rs., %dKg) completely in the
+bag. Space left: %d.\n", item + 1, value[item], weight[item],
+cur_weight);
+else
+{
+int item_percent = (int)((1 + (float)cur_weight /
+weight[item]) * 100);
+printf("Added %d%% (%d Rs., %dKg) of object %d in the
+bag.\n", item_percent, value[item], weight[item], item + 1);
+total_profit -= value[item];
+total_profit += (1 + (float)cur_weight / weight[item]) *
+value[item];
+}
+}
+printf("Filled the bag with objects worth %.2f Rs.\n",
+total_profit);
+}
 
 
-Q.15 Write a SQL statement to create a table Employee with fields
-Emp_Id, Ename, Deptname and Salary. Insert two records in a table.
-Write an SQL query to fetch Employee names with salaries >= 50000 and
-<= 100000.
-ANS.
-mysql> select * from employee;
-+--------+-----------------+-----------+--------+
-| Emp_id | Ename | Dept_name | Salary |
-+--------+-----------------+-----------+--------+
-| 101 | M.S Dhoni | Software | 50000 |
-| 102 | Yuvraj Singh | Accounts | 60000 |
-| 103 | Virendra Sehwag | Software | 70000 |
-| 108 | Rohit Sharma | Admin | 75000 |
-+--------+-----------------+-----------+--------+
-4 rows in set (0.00 sec)
-mysql> select Ename from employee where Salary between 50000 and
-100000;
-+-----------------+
-| Ename |
-+-----------------+
-| M.S Dhoni |
-| Yuvraj Singh |
-| Virendra Sehwag |
-| Rohit Sharma |
-+-----------------+
-4 rows in set (0.00 sec)
+ Floyd Warshall Algorithm 
+#include <stdio.h>
+#include <stdlib.h>
+void floydWarshall(int **graph, int n)
+{
+int i, j, k;
+for (k = 0; k < n; k++)
+{
+for (i = 0; i < n; i++)
+{
+for (j = 0; j < n; j++)
+{
+if (graph[i][j] > graph[i][k] + graph[k][j])
+graph[i][j] = graph[i][k] + graph[k][j];
+}
+}
+}
+}
+int main(void)
+{
+int n, i, j;
+printf("Enter the number of vertices: ");
+scanf("%d", &n);
+int **graph = (int **)malloc((long unsigned) n * sizeof(int *));
+for (i = 0; i < n; i++)
+{
+graph[i] = (int *)malloc((long unsigned) n * sizeof(int));
+}
+for (i = 0; i < n; i++)
+{
+for (j = 0; j < n; j++)
+{
+if (i == j)
+graph[i][j] = 0;
+else
+graph[i][j] = 100;
+}
+}
+printf("Enter the edges: \n");
+for (i = 0; i < n; i++)
+{
+for (j = 0; j < n; j++)
+{
+printf("[%d][%d]: ", i, j);
+scanf("%d", &graph[i][j]);
+}
+}
+printf("The original graph is:\n");
+for (i = 0; i < n; i++)
+{
+for (j = 0; j < n; j++)
+{
+printf("%d ", graph[i][j]);
+}
+printf("\n");
+}
+floydWarshall(graph, n);
+printf("The shortest path matrix is:\n");
+for (i = 0; i < n; i++)
+{
+for (j = 0; j < n; j++)
+{
+printf("%d ", graph[i][j]);
+}
+printf("\n");
+}
+return 0;
+}
 
 
-
-Q16. Write a SQL statement to create a table Employee with fields
-Emp_Id, Ename, Deptname and Salary. Insert two records in a table.
-Write an SQL query to fetch Employee names having highest salary in
-department.
-ANS.
-mysql> select * from employee;
-+--------+-----------------+-----------+--------+
-| Emp_id | Ename | Dept_name | Salary |
-+--------+-----------------+-----------+--------+
-| 101 | M.S Dhoni | Software | 50000 |
-| 102 | Yuvraj Singh | Accounts | 60000 |
-| 103 | Virendra Sehwag | Software | 70000 |
-| 108 | Rohit Sharma | Admin | 75000 |
-+--------+-----------------+-----------+--------+
-4 rows in set (0.00 sec)
-mysql> SELECT Ename, Dept_name, Salary
- -> FROM Employee e1
- -> WHERE Salary = (
- -> SELECT MAX(Salary)
- -> FROM Employee e2
- -> WHERE e1.Dept_name = e2.Dept_name);
-+-----------------+-----------+--------+
-| Ename | Dept_name | Salary |
-+-----------------+-----------+--------+
-| Yuvraj Singh | Accounts | 60000 |
-| Virendra Sehwag | Software | 70000 |
-| Rohit Sharma | Admin | 75000 |
-+-----------------+-----------+--------+
-3 rows in set (0.00 sec)
-
-
-
-Q17. Write a SQL statement to create a table Book with fields
-Book (Book_Id, Title, Author, Cost) Insert two records in a table.
-Write an SQL queries to modify the cost of DBMS books by 12%.
-ANS.
-mysql> select * from book;
-+---------+-----------+--------+------------------+------+
-| Book_id | Book_Name | Author | Publisher | cost |
-+---------+-----------+--------+------------------+------+
-| 101 | DBMS | RG | Basic of DBMS | 100 |
-| 102 | OS | SD | Operating System | 800 |
-+---------+-----------+--------+------------------+------+
-2 rows in set (0.00 sec)
-mysql> update book set cost=cost*1.12 where Book_id=101;
-Query OK, 1 row affected (0.01 sec)
-Rows matched: 1 Changed: 1 Warnings: 0
-mysql> select * from book;
-+---------+-----------+--------+------------------+------+
-| Book_id | Book_Name | Author | Publisher | cost |
-+---------+-----------+--------+------------------+------+
-| 101 | DBMS | RG | Basic of DBMS | 112 |
-| 102 | OS | SD | Operating System | 800 |
-+---------+-----------+--------+------------------+------+
-2 rows in set (0.00 sec)
-
-
-
-Q18. Write a SQL statement to create a table Employee with fields
-Emp_Id, Ename, Deptname and Salary. Insert two records in a table.
-Write an SQL queries to modify the salary of all employees with 15%
-rise in salary.
-ANS.
-mysql> select * from employee;
-+--------+-----------------+-----------+--------+
-| Emp_id | Ename | Dept_name | Salary |
-+--------+-----------------+-----------+--------+
-| 101 | M.S Dhoni | Software | 50000 |
-| 102 | Yuvraj Singh | Accounts | 60000 |
-| 103 | Virendra Sehwag | Software | 70000 |
-| 108 | Rohit Sharma | Admin | 75000 |
-+--------+-----------------+-----------+--------+
-4 rows in set (0.00 sec)
-mysql> update employee set salary = salary*1.15;
-Query OK, 4 rows affected (0.01 sec)
-Rows matched: 4 Changed: 4 Warnings: 0
-mysql> select * from employee;
-+--------+-----------------+-----------+--------+
-| Emp_id | Ename | Dept_name | Salary |
-+--------+-----------------+-----------+--------+
-| 101 | M.S Dhoni | Software | 57500 |
-| 102 | Yuvraj Singh | Accounts | 69000 |
-| 103 | Virendra Sehwag | Software | 80500 |
-| 108 | Rohit Sharma | Admin | 86250 |
-+--------+-----------------+-----------+--------+
-4 rows in set (0.00 sec)
-
-
-Q19. Write a SQL statement to create a table Employee with fields
-EmpId, EName, Address, City Insert two records in a table. Write an
-SQL queries to modify database so that Rohit now lives in Mumbai,
-assuming the database entry was Rohit staying in Delhi.
-ANS.
-mysql> create table Emp_Deatils(Emp_Id int primary key,Ename
-varchar(50),Address varchar(50),City varchar(50));
-Query OK, 0 rows affected (0.03 sec)
-mysql> insert into Emp_Deatils
-values(101,"Rohit","Agra","Delhi"),(102,"Sach
-in","Ghansoli","Navi Mumbai");
-Query OK, 2 rows affected (0.01 sec)
-Records: 2 Duplicates: 0 Warnings: 0
-mysql> select * from Emp_Deatils;
-+--------+--------+----------+-------------+
-| Emp_Id | Ename | Address | City |
-+--------+--------+----------+-------------+
-| 101 | Rohit | Agra | Delhi |
-| 102 | Sachin | Ghansoli | Navi Mumbai |
-+--------+--------+----------+-------------+
-2 rows in set (0.00 sec)
-mysql> update Emp_Deatils set City ="Mumbai" ,Address="Bhandup" where
-Emp_Id
-=101;
-Query OK, 1 row affected (0.01 sec)
-Rows matched: 1 Changed: 1 Warnings: 0
-mysql> select * from Emp_Deatils;
-+--------+--------+----------+-------------+
-| Emp_Id | Ename | Address | City |
-+--------+--------+----------+-------------+
-| 101 | Rohit | Bhandup | Mumbai |
-| 102 | Sachin | Ghansoli | Navi Mumbai |
-+--------+--------+----------+-------------+
-2 rows in set (0.00 sec) 
+LCS
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+// Function to find the longest common subsequence
+void lcs(const char *str1, const char *str2, int len1, int len2)
+{
+int lcsTable[len1 + 1][len2 + 1]; // LCS table for dynamic
+programming
+int i, j;
+// Initialize the table with 0s
+for (i = 0; i <= len1; i++)
+{
+for (j = 0; j <= len2; j++)
+{
+if (i == 0 || j == 0)
+{
+lcsTable[i][j] = 0;
+}
+}
+}
+// Fill the LCS table
+for (i = 1; i <= len1; i++)
+{
+for (j = 1; j <= len2; j++)
+{
+if (str1[i - 1] == str2[j - 1])
+{
+lcsTable[i][j] = lcsTable[i - 1][j - 1] + 1; // Extend
+the common subsequence
+}
+else
+{
+lcsTable[i][j] = (lcsTable[i - 1][j] > lcsTable[i][j -
+1]) ? lcsTable[i - 1][j] : lcsTable[i][j - 1]; // Choose the maximum
+}
+}
+}
+// Find the LCS by backtracking
+int index = lcsTable[len1][len2]; // Length of LCS
+char lcsStr[index + 1]; // Array to store the LCS
+lcsStr[index] = '\0'; // Null-terminate the string
+i = len1;
+j = len2;
+while (i > 0 && j > 0)
+{
+if (str1[i - 1] == str2[j - 1])
+{
+lcsStr[--index] = str1[i - 1]; // Include the matching
+character
+i--;
+j--;
+}
+else if (lcsTable[i - 1][j] > lcsTable[i][j - 1])
+{
+i--; // Move upwards in the table
+}
+else
+{
+j--; // Move leftwards in the table
+}
+}
+printf("The Longest Common Subsequence is: %s\n", lcsStr);
+}
+int main()
+{
+char str1[100], str2[100]; // Buffers to store the input strings
+printf("Enter the first sequence: ");
+fgets(str1, sizeof(str1), stdin); // Read the first sequence
+str1[strcspn(str1, "\n")] = '\0'; // Remove newline character
+printf("Enter the second sequence: ");
+fgets(str2, sizeof(str2), stdin); // Read the second sequence
+str2[strcspn(str2, "\n")] = '\0'; // Remove newline character
+int len1 = strlen(str1);
+int len2 = strlen(str2);
+lcs(str1, str2, len1, len2); // Find the LCS of the two sequences
+return 0;
+}
