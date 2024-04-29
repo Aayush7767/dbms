@@ -1,487 +1,295 @@
-Selection Sort
-#include <stdio.h>
-void selectionSort(int arr[], int size);
-void swap(int *a, int *b);
-/*Selection sort function*/
-void selectionSort(int arr[], int size)
-{
-int i, j;
-for (i = 0; i < size; i++)
-{
-for (j = i; j < size; j++)
-{
-if (arr[i] > arr[j])
-swap(&arr[i], &arr[j]);
-}
-}
-}
-/*Function to swap two variables*/
-void swap(int *a, int *b)
-{
-int temp;
-temp = *a;
-*a = *b;
-*b = temp;
-}
-/*Main Function*/
+Write shell scripts to do the following:
+Steps:
+1. Open Text Editor
+2. Type shell program
+3. Save the file with extension sh (eg:- shellpdemo.sh)
+4. Open Terminal (ctrl + alt + T)
+5. To run the program type bash shellpdemo.sh
+
+#Shell Program 1
+#To know the kernel being used
+echo ' kernel in your system'
+uname -a
+#ubuntu version
+echo 'ubuntu version and release number '
+lsb_release -a
+echo 'Top processes'
+ps aux
+echo 'Top processes in ascending order'
+ps aux|sort
+echo 'Top processes in descending order'
+ps aux|sort -r
+
+#Shell Program 2
+echo 'Top memory consuming processes'
+ps aux --sort -rss|head
+echo 'current login user and log name'
+w
+echo ' Current shell'
+ps -p $$
+echo 'Display home directory'
+ls
+echo 'current working directory'
+pwd
+echo 'operating system type'
+uname -r
+
+
+2) CP NAD MV
+
+ CP:
+ #include <stdio.h>
+#include <stdlib.h> // For exit()
 int main()
 {
-int array[10], i, size;
-printf("How many numbers you want to sort: ");
-scanf("%d", &size);
-printf("\nEnter %d numbers:\t", size);
-printf("\n");
-for (i = 0; i < size; i++)
-scanf("%d", &array[i]);
-selectionSort(array, size);
-printf("\nSorted array is: ");
-for (i = 0; i < size; i++)
-printf(" %d ", array[i]);
+FILE *fptr1, *fptr2;
+char filename[100], c;
+printf("Enter the filename to open for reading \n");
+scanf("%s", filename);
+// Open one file for reading
+fptr1 = fopen(filename, "r");
+if (fptr1 == NULL)
+{
+printf("Cannot open file %s \n", filename);
+exit(0);
+}
+printf("Enter the filename to open for writing \n");
+scanf("%s", filename);
+// Open another file for writing
+fptr2 = fopen(filename, "w");
+if (fptr2 == NULL)
+{
+printf("Cannot open file %s \n", filename);
+exit(0);
+}
+// Read contents from file
+c = fgetc(fptr1);
+while (c != EOF)
+{
+fputc(c, fptr2);
+c = fgetc(fptr1);
+}
+printf("\nContents copied to %s", filename);
+fclose(fptr1);
+fclose(fptr2);
 return 0;
 }
 
-
-Insertion Sort.
+MV:
 #include <stdio.h>
-int main(void)
+int main()
 {
-int n, i, j, temp;
-int arr[64];
-printf("\nEnter number of elements:");
-scanf("%d", &n);
-printf("\nEnter %d integers:\t\n", n);
-for (i = 0; i < n; i++)
+char old[100], new[100];
+printf("Enter old file path: ");
+scanf("%s", old);
+printf("Enter new file path: ");
+scanf("%s", new);
+if (rename(old, new) == 0)
 {
-scanf("%d", &arr[i]);
-}
-for (i = 1; i < n; i++)
-{
-j = i;
-while (j > 0 && arr[j - 1] > arr[j])
-{
-temp = arr[j];
-arr[j] = arr[j - 1];
-arr[j - 1] = temp;
-j--;
-}
-}
-printf("\nSorted array is:");
-for (i = 0; i < n; i++)
-{
-printf(" %d ", arr[i]);
-}
-return 0;
-}
-
-
-Merge Sort
-#include <stdio.h>
-#include <stdlib.h>
-// merge function
-void Merge(int arr[], int left, int mid, int right)
-{
-int i, j, k;
-int size1 = mid - left + 1;
-int size2 = right - mid;
-// created temporary array
-int Left[size1], Right[size2];
-// copying the data from arr to temporary array
-for (i = 0; i < size1; i++)
-Left[i] = arr[left + i];
-for (j = 0; j < size2; j++)
-Right[j] = arr[mid + 1 + j];
-// merging of the array
-i = 0; // intital index of first subarray
-j = 0; // inital index of second subarray
-k = left; // initial index of parent array
-while (i < size1 && j < size2)
-{
-if (Left[i] <= Right[j])
-{
-arr[k] = Left[i];
-i++;
+printf("File renamed successfully.");
 }
 else
 {
-arr[k] = Right[j];
-j++;
+printf("Unable to rename files");
 }
-k++;
+return 0;
 }
-// copying the elements from Left[], if any
-while (i < size1)
-{
-arr[k] = Left[i];
-i++;
-k++;
-}
-// copying the elements from Right[], if any
-while (j < size2)
-{
-arr[k] = Right[j];
-j++;
-k++;
-}
-}
-// merge sort function
-void Merge_Sort(int arr[], int left, int right)
-{
-if (left < right)
-{
-int mid = left + (right - left) / 2;
-// recursive calling of merge_sort
-Merge_Sort(arr, left, mid);
-Merge_Sort(arr, mid + 1, right);
-Merge(arr, left, mid, right);
-}
-}
-// driver code
+
+
+3) Create a child process using the fork system call.
+#include<stdio.h>
+#include<sys/type.h>
+#include<unistd.h>
 int main()
 {
-int size;
-printf("\nEnter the size: ");
-scanf("%d", &size);
-int arr[size];
-printf("\nEnter the elements of array:\t\n ");
-for (int i = 0; i < size; i++)
-{
-scanf("%d", &arr[i]);
+   fork();
+   printf("Hello World\n");
+   printf("Parent id=%d",getppid());
+   printf("Child Process id=%d",getpid());
+   return 0;
 }
-Merge_Sort(arr, 0, size - 1);
-printf("\nThe sorted array is: ");
-for (int i = 0; i < size; i++)
+
+4)Write a program to demonstrate the concept of non-pre-emptive
+scheduling algorithms.
+
+#include<stdio.h>
+int main()
 {
-printf(" %d ", arr[i]);
+int AT[10],BT[10],WT[10],TT[10],i,n;
+int b=0,cmpl_T;
+float Avg_WT,Avg_TT,Total=0;
+printf("Enter number of the process\n");
+scanf("%d",&n);
+printf("Enter Arrival time and Burst time of the process\n");
+printf("AT\tBT\n");
+for(i=0;i<n;i++)
+{
+scanf("%d%d",&AT[i],&BT[i]);
 }
-printf("\n");
+// Logic for calculating Waiting time
+for(i=0;i<n;i++)
+{
+if(i==0)
+WT[i]=AT[i];
+else
+WT[i]=b-AT[i];
+b+=BT[i];
+Total+=WT[i];
+}
+Avg_WT=Total/n;
+// Logic for calculating Turn around time
+cmpl_T=0;
+Total=0;
+
+for(i=0;i<n;i++)
+{
+cmpl_T+=BT[i];
+TT[i]=cmpl_T-AT[i];
+Total+=TT[i];
+}
+Avg_TT=Total/n;
+// printing of outputs
+printf("Process ,Waiting_time ,TurnA_time\n");
+for(i=0;i<n;i++)
+{
+printf("%d\t\t%d\t\t%d\n",i+1,WT[i],TT[i]);
+}
+printf("Average waiting time is : %f\n",Avg_WT);
+printf("Average turn around time is : %f\n",Avg_TT);
 return 0;
 }
 
 
 
-Quick Sort
-#include <stdio.h>
-#include <stdlib.h>
-int quickSort(int *arr, int low, int high)
-{
-int i = low, j = high;
-int pivot = arr[(low + high) / 2];
-while (i <= j)
-{
-while (arr[i] < pivot)
-i++;
-while (arr[j] > pivot)
-j--;
-if (i <= j)
-{
-int temp = arr[i];
-arr[i] = arr[j];
-arr[j] = temp;
-i++;
-j--;
-}
-}
-if (low < j)
-quickSort(arr, low, j);
-if (i < high)
-quickSort(arr, i, high);
-return 0;
-}
-int main(void)
-{
-puts("Enter the number of elements in the array: ");
-int n;
-scanf("%d", &n);
-int arr[n];
-puts("Enter the elements of the array: ");
-for (int i = 0; i < n; i++)
-{
-printf("arr[%d]: ", i);
-scanf("%d", &arr[i]);
-}
-int low = 0;
-int high = n - 1;
-int pivot = arr[high];
-int k = low - 1;
-for (int j = low; j < high; j++)
-{
-if (arr[j] <= pivot)
-{
-k++;
-int temp = arr[k];
-arr[k] = arr[j];
-arr[j] = temp;
-}
-}
-int temp = arr[k + 1];
-arr[k + 1] = arr[high];
-arr[high] = temp;
-int pi = k + 1;
-quickSort(arr, low, pi - 1);
-quickSort(arr, pi + 1, high);
-puts("The sorted array is: ");
-for (int i = 0; i < n; i++)
-{
-printf("%d ", arr[i]);
-}
-return 0;
-}
+5)Write a c program to implement the producer-consumer problem
 
-
-
-Max Min
-#include <stdio.h>
-
-int max, min;
-int a[100];
-
-void maxmin(int i, int j) {
-    int max1, min1, mid;
-    if (i == j) {
-        max = min = a[i];
-    } else {
-        if (i == j - 1) {
-            if (a[i] < a[j]) {
-                max = a[j];
-                min = a[i];
-            } else {
-                max = a[i];
-                min = a[j];
-            }
-        } else {
-            mid = (i + j) / 2;
-            maxmin(i, mid);
-            max1 = max;
-            min1 = min;
-            maxmin(mid + 1, j);
-            if (max < max1)
-                max = max1;
-            if (min > min1)
-                min = min1;
+#include<stdio.h>
+#include<stdlib.h>
+int mutex=1;
+int full=0;
+int empty=3,x=0;
+void producer()
+{
+   --mutex;
+   ++full;
+   --empty;
+   x++;
+   printf("\nProducer produces item=%d",x);
+   ++mutex;
+}   
+void consumer()
+{
+   --mutex;
+   --full;
+   ++empty;
+   printf("\nConsumer consumes item=%d",x);
+   x--;
+   ++mutex;
+}
+int main()
+{
+   int n,i;
+   printf("\n1.Press for Producer");
+   printf("\n2.Press 2 for consumer");
+   for(i=1;i>0;i++)
+   {  
+      printf("\n Enter your choice:");
+      scand("%d",^n);
+      switch(n)
+      {
+        case 1:
+        if((mutex==1)&&(empty !=0))
+        {
+           producer();
+        }
+        else
+        { 
+           printf("Buffer is full");
+        }
+        break;
+        case 2:
+        if((mutex==1)&&(full !=0))
+        {
+           consumer();
+        }
+        else
+        {
+           printf("Buffer is empty");
+        }
+        break;
+        case 3:
+        printf("We hav studied producer Consumer problem");
+        exit(0);
+        break;
         }
     }
 }
 
-int main() {
-    int i, num;
-    printf("\nEnter the total number of numbers : ");
-    scanf("%d", &num);
-    printf("Enter the numbers : \n");
-    for (i = 0; i < num; i++)
-        scanf("%d", &a[i]);
 
-    max = a[0];
-    min = a[0];
-    maxmin(0, num - 1);
-    printf("Minimum element in the array : %d\n", min);
-    printf("Maximum element in the array : %d\n", max);
-    return 0;
-}
+6. Write a program for FCFS disk scheduling algorithm
 
-
-
-Fractional Knapsack
-#include <stdio.h>
-void main()
-{
-int capacity, no_items, cur_weight, item;
-int used[10];
-float total_profit;
-int i;
-int weight[10];
-int value[10];
-printf("\nEnter the capacity of knapsack:");
-scanf("%d", &capacity);
-printf("\nEnter the number of items:");
-scanf(" %d", &no_items);
-printf("\nEnter the weight and value respectively of %d item:\n",
-no_items);
-for (i = 0; i < no_items; i++)
-{
-printf("Weight[%d]:\t", i);
-scanf("%d", &weight[i]);
-printf("Value(Rs.)[%d]:\t", i);
-scanf("%d", &value[i]);
-}
-for (i = 0; i < no_items; ++i)
-used[i] = 0;
-cur_weight = capacity;
-while (cur_weight > 0)
-{
-item = -1;
-for (i = 0; i < no_items; ++i)
-if ((used[i] == 0) &&
-((item == -1) || ((float)value[i] / weight[i] >
-(float)value[item] / weight[item])))
-item = i;
-used[item] = 1;
-cur_weight -= weight[item];
-total_profit += value[item];
-if (cur_weight >= 0)
-printf("Added object %d (%d Rs., %dKg) completely in the
-bag. Space left: %d.\n", item + 1, value[item], weight[item],
-cur_weight);
-else
-{
-int item_percent = (int)((1 + (float)cur_weight /
-weight[item]) * 100);
-printf("Added %d%% (%d Rs., %dKg) of object %d in the
-bag.\n", item_percent, value[item], weight[item], item + 1);
-total_profit -= value[item];
-total_profit += (1 + (float)cur_weight / weight[item]) *
-value[item];
-}
-}
-printf("Filled the bag with objects worth %.2f Rs.\n",
-total_profit);
-}
-
-
- Floyd Warshall Algorithm 
-#include <stdio.h>
-#include <stdlib.h>
-void floydWarshall(int **graph, int n)
-{
-int i, j, k;
-for (k = 0; k < n; k++)
-{
-for (i = 0; i < n; i++)
-{
-for (j = 0; j < n; j++)
-{
-if (graph[i][j] > graph[i][k] + graph[k][j])
-graph[i][j] = graph[i][k] + graph[k][j];
-}
-}
-}
-}
-int main(void)
-{
-int n, i, j;
-printf("Enter the number of vertices: ");
-scanf("%d", &n);
-int **graph = (int **)malloc((long unsigned) n * sizeof(int *));
-for (i = 0; i < n; i++)
-{
-graph[i] = (int *)malloc((long unsigned) n * sizeof(int));
-}
-for (i = 0; i < n; i++)
-{
-for (j = 0; j < n; j++)
-{
-if (i == j)
-graph[i][j] = 0;
-else
-graph[i][j] = 100;
-}
-}
-printf("Enter the edges: \n");
-for (i = 0; i < n; i++)
-{
-for (j = 0; j < n; j++)
-{
-printf("[%d][%d]: ", i, j);
-scanf("%d", &graph[i][j]);
-}
-}
-printf("The original graph is:\n");
-for (i = 0; i < n; i++)
-{
-for (j = 0; j < n; j++)
-{
-printf("%d ", graph[i][j]);
-}
-printf("\n");
-}
-floydWarshall(graph, n);
-printf("The shortest path matrix is:\n");
-for (i = 0; i < n; i++)
-{
-for (j = 0; j < n; j++)
-{
-printf("%d ", graph[i][j]);
-}
-printf("\n");
-}
-return 0;
-}
-
-
-LCS
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
-// Function to find the longest common subsequence
-void lcs(const char *str1, const char *str2, int len1, int len2)
-{
-int lcsTable[len1 + 1][len2 + 1]; // LCS table for dynamic
-programming
-int i, j;
-// Initialize the table with 0s
-for (i = 0; i <= len1; i++)
-{
-for (j = 0; j <= len2; j++)
-{
-if (i == 0 || j == 0)
-{
-lcsTable[i][j] = 0;
-}
-}
-}
-// Fill the LCS table
-for (i = 1; i <= len1; i++)
-{
-for (j = 1; j <= len2; j++)
-{
-if (str1[i - 1] == str2[j - 1])
-{
-lcsTable[i][j] = lcsTable[i - 1][j - 1] + 1; // Extend
-the common subsequence
-}
-else
-{
-lcsTable[i][j] = (lcsTable[i - 1][j] > lcsTable[i][j -
-1]) ? lcsTable[i - 1][j] : lcsTable[i][j - 1]; // Choose the maximum
-}
-}
-}
-// Find the LCS by backtracking
-int index = lcsTable[len1][len2]; // Length of LCS
-char lcsStr[index + 1]; // Array to store the LCS
-lcsStr[index] = '\0'; // Null-terminate the string
-i = len1;
-j = len2;
-while (i > 0 && j > 0)
-{
-if (str1[i - 1] == str2[j - 1])
-{
-lcsStr[--index] = str1[i - 1]; // Include the matching
-character
-i--;
-j--;
-}
-else if (lcsTable[i - 1][j] > lcsTable[i][j - 1])
-{
-i--; // Move upwards in the table
-}
-else
-{
-j--; // Move leftwards in the table
-}
-}
-printf("The Longest Common Subsequence is: %s\n", lcsStr);
-}
+#include<math.h>
+#include<stdio.h>
+#include<stdlib.h>
 int main()
 {
-char str1[100], str2[100]; // Buffers to store the input strings
-printf("Enter the first sequence: ");
-fgets(str1, sizeof(str1), stdin); // Read the first sequence
-str1[strcspn(str1, "\n")] = '\0'; // Remove newline character
-printf("Enter the second sequence: ");
-fgets(str2, sizeof(str2), stdin); // Read the second sequence
-str2[strcspn(str2, "\n")] = '\0'; // Remove newline character
-int len1 = strlen(str1);
-int len2 = strlen(str2);
-lcs(str1, str2, len1, len2); // Find the LCS of the two sequences
-return 0;
+int i,n,req[50],mov=0,cp;
+printf("enter the current position\n");
+scanf("%d",&cp);
+printf("enter the number of requests\n");
+scanf("%d",&n);
+printf("enter the request order\n");
+for(i=0;i<n;i++)
+{
+scanf("%d",&req[i]);
 }
+mov=mov+abs(cp-req[0]); // abs is used to calculate the absolute value
+printf("%d -> %d",cp,req[0]);
+for(i=1;i<n;i++)
+{
+mov=mov+abs(req[i]-req[i-1]);
+printf(" -> %d",req[i]);
+}
+printf("\n");
+printf("total head movement = %d\n",mov);
+}
+
+
+8. FIFO
+#include<stdio.h> 
+int main() 
+{ 
+int i,j,n,a[50],frame[10],no,k,avail,count=0; 
+printf("\nenter the length of the Reference string:\n"); 
+scanf("%d",&n); 
+printf("\n enter the reference string:\n"); 
+for(i=1;i<=n;i++) 
+scanf("%d",&a[i]); 
+printf("\n enter the number of Frames:"); 
+scanf("%d",&no); 
+for(i=0;i<no;i++) 
+frame[i]= -1; 
+j=0; 
+printf("\tref string\t page frames\n"); 
+for(i=1;i<=n;i++) 
+printf("%d\t\t",a[i]); 
+avail=0; 
+for(k=0;k<no;k++) 
+if(frame[k]=a[i]) 
+avail=1; 
+if (avail=0) 
+{ 
+frame[j]=a[i]; 
+j=(j+1)%no; 
+count++; 
+for(k=0;k<no;k++) 
+printf("%d\t",frame[k]);
+}
+printf("\n\n");
+}
+printf("Page Fault Is %d",count); 
+return 0; 
+}
+
+
+         
