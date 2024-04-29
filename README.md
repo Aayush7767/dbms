@@ -98,7 +98,7 @@ return 0;
 
 3) Create a child process using the fork system call.
 #include<stdio.h>
-#include<sys/type.h>
+#include<sys/types.h>
 #include<unistd.h>
 int main()
 {
@@ -194,7 +194,7 @@ int main()
    for(i=1;i>0;i++)
    {  
       printf("\n Enter your choice:");
-      scand("%d",^n);
+      scanf("%d",&n);
       switch(n)
       {
         case 1:
